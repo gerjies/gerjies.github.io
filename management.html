@@ -11,8 +11,13 @@
         <header>
             <h1>管理面板</h1>
         </header>
-        <section>
-            <p>欢迎, 管理员！这里是你的管理界面。</p>
+        <section id="statistics">
+            <p><strong>网站统计:</strong></p>
+            <ul>
+                <li>用户点击前往按钮: <span id="clicks">0</span></li>
+                <li>用户访问主页: <span id="visits">0</span></li>
+                <li>用户访问后台: <span id="admin-logins">0</span></li>
+            </ul>
         </section>
         <button class="styled-button" onclick="logout()">登出</button>
         <footer>
@@ -22,8 +27,19 @@
 
     <script>
         function logout() {
-            window.location.href = "index.html"; // 返回主页
+            window.location.href = "index.html";
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取统计信息
+            fetch('/api/getStatistics')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('clicks').textContent = data.clicks;
+                    document.getElementById('visits').textContent = data.visits;
+                    document.getElementById('admin-logins').textContent = data.adminLogins;
+                });
+        });
     </script>
 </body>
 </html>
