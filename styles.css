@@ -1,13 +1,13 @@
-/* 背景蓝色渐变和动画效果 */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(270deg, #0a74da, #00c6ff, #0072ff, #00c6ff, #0a74da);
-    background-size: 800% 800%;
-    animation: gradient-animation 15s ease infinite;
+    background-color: #f4f4f9;
     color: #333;
     padding: 0;
     margin: 0;
+    background: linear-gradient(270deg, #0a74da, #00c6ff, #0072ff, #00c6ff, #0a74da);
+    background-size: 800% 800%;
+    animation: gradient-animation 15s ease infinite;
 }
 
 @keyframes gradient-animation {
@@ -53,21 +53,4 @@ header, section, footer {
 .styled-button:hover {
     background-color: #005f5f;
     transform: scale(1.05);
-}
-
-.login-container, .management-container {
-    display: none;
-    text-align: center;
-}
-
-/* 隐藏登录按钮样式 */
-.hidden-login-button {
-    display: block;
-    text-align: center;
-    color: transparent; /* 隐藏文本颜色 */
-    cursor: default;
-}
-
-.hidden-login-button:hover {
-    color: transparent;
 }
