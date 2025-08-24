@@ -26,7 +26,7 @@ body {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9); /* 半透明背景确保内容清晰可读 */
+    background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-radius: 8px;
 }
@@ -35,7 +35,6 @@ header, section, footer {
     margin-bottom: 20px;
 }
 
-/* 按钮样式 */
 .styled-button {
     background-color: #008cba;
     border: none;
@@ -48,11 +47,27 @@ header, section, footer {
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
-    transition: background-color 0.3s, transform 0.3s; /* 过渡效果 */
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-/* 悬停效果 */
 .styled-button:hover {
     background-color: #005f5f;
-    transform: scale(1.05); /* 缩放效果 */
+    transform: scale(1.05);
+}
+
+.login-container, .management-container {
+    display: none;
+    text-align: center;
+}
+
+/* 隐藏登录按钮样式 */
+.hidden-login-button {
+    display: block;
+    text-align: center;
+    color: transparent; /* 隐藏文本颜色 */
+    cursor: default;
+}
+
+.hidden-login-button:hover {
+    color: transparent;
 }
