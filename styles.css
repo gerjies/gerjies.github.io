@@ -1,17 +1,32 @@
+/* 背景蓝色渐变和动画效果 */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f9;
+    background: linear-gradient(270deg, #0a74da, #00c6ff, #0072ff, #00c6ff, #0a74da);
+    background-size: 800% 800%;
+    animation: gradient-animation 15s ease infinite;
     color: #333;
     padding: 0;
     margin: 0;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9); /* 半透明背景确保内容清晰可读 */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-radius: 8px;
 }
