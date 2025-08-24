@@ -4,7 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人简介</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(270deg, #0a74da, #00c6ff, #0072ff, #00c6ff, #0a74da);
+            background-size: 800% 800%;
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        header, section, footer {
+            margin-bottom: 20px;
+        }
+
+        /* 按钮样式 */
+        .styled-button {
+            background-color: #008cba;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        /* 悬停效果 */
+        .styled-button:hover {
+            background-color: #005f5f;
+            transform: scale(1.05);
+        }
+
+        .login-container, .management-container {
+            display: none;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container" id="intro-container">
@@ -16,7 +80,6 @@
             <h2>简介</h2>
             <p>我的爱发电地址(各位来点吧要穷死了)</p>
             <button class="styled-button" onclick="openLink()">前往</button>
-            <button class="login-button" onclick="showLogin()">管理员登录</button>
         </section>
         <footer>
             <p>© 2025 zzx. 保留所有权利。</p>
@@ -27,7 +90,7 @@
         <h2>管理员登录</h2>
         <input type="text" placeholder="用户名" id="admin-username"><br><br>
         <input type="password" placeholder="密码" id="admin-password"><br><br>
-        <button class="login-button" onclick="login()">登录</button>
+        <button class="styled-button" onclick="login()">登录</button>
     </div>
 
     <div class="container management-container" id="management-container">
@@ -37,17 +100,46 @@
     </div>
 
     <script>
+        // JavaScript 函数来打开链接
         function openLink() {
             window.open('https://afdian.com/a/SCP_SL', '_blank');
+        }
+
+        let ctrlPressed = false;
+        let wPressed = false;
+
+        // 监听按键按下事件
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey) {
+                ctrlPressed = true;
+            }
+            if (ctrlPressed && event.key === 'w') {
+                document.addEventListener('keydown', onDPress);
+            }
+        });
+
+        document.addEventListener('keyup', function(event) {
+            if (event.key === 'Control') {
+                ctrlPressed = false;
+                document.removeEventListener('keydown', checkForKeyD);
+            } else if (event.key === 'w') {
+                document.removeEventListener('keydown', onDPress);
+            }
+        });
+
+        function checkForKeyD(event) {
+            if (event.key === 'd') {
+                showLogin();
+            }
         }
 
         function showLogin() {
             document.getElementById('intro-container').style.display = 'none';
             document.getElementById('login-container').style.display = 'block';
+            document.removeEventListener('keydown', checkForKeyD); // Remove event to reset
         }
 
         function login() {
-            // 以下是一个简单的静态检查用户名和密码的实现。
             const username = document.getElementById('admin-username').value;
             const password = document.getElementById('admin-password').value;
 
@@ -58,6 +150,27 @@
                 alert('用户名或密码错误！');
             }
         }
+
+        function logout() {
+            document.getElementById('management-container').style.display = 'none';
+            document.getElementById('intro-container').style.display = 'block';
+        }
+
+        // Add event listener for the key combination
+        function checkForKeyD(event) {
+            if (ctrlPressed && event.key === 'd') {
+                showLogin();
+            }
+        }
+        
+        window.addEventListener('keydown', function(event) {
+            if (event.ctrlKey) {
+                ctrlPressed = true;
+            }
+            if (ctrlPressed && event.key === 'w') {
+                document.addEventListener('keydown', checkForKeyD);
+            }
+        });
 
         function logout() {
             document.getElementById('management-container').style.display = 'none';
