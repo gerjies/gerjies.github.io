@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="zh-CN">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理面板</title>
     <link rel="stylesheet" href="styles.css">
@@ -11,12 +11,12 @@
         <header>
             <h1>管理面板</h1>
         </header>
-        <section id="statistics">
+        <section>
             <p><strong>网站统计:</strong></p>
             <ul>
-                <li>用户点击前往按钮: <span id="clicks">0</span></li>
-                <li>用户访问主页: <span id="visits">0</span></li>
-                <li>用户访问后台: <span id="admin-logins">0</span></li>
+                <li>前往按钮点击次数: <span id="clicks">0</span></li>
+                <li>用户访问主页数: <span id="visits">0</span></li>
+                <li>管理员登录次数: <span id="admin-logins">0</span></li>
             </ul>
         </section>
         <button class="styled-button" onclick="logout()">登出</button>
@@ -27,18 +27,14 @@
 
     <script>
         function logout() {
-            window.location.href = "index.html";
+            window.location.href = "index.html"; // 返回主页
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // 获取统计信息
-            fetch('/api/getStatistics')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('clicks').textContent = data.clicks;
-                    document.getElementById('visits').textContent = data.visits;
-                    document.getElementById('admin-logins').textContent = data.adminLogins;
-                });
+            // 从localStorage获取和显示统计数据
+            document.getElementById('clicks').textContent = localStorage.getItem('clickCount') || 0;
+            document.getElementById('visits').textContent = localStorage.getItem('visitCount') || 0;
+            document.getElementById('admin-logins').textContent = localStorage.getItem('adminLoginCount') || 0;
         });
     </script>
 </body>
