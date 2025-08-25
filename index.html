@@ -4,18 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人简介</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(270deg, #0a74da, #00c6ff, #0072ff, #00c6ff, #0a74da);
+            background-size: 800% 800%;
+            animation: gradient-animation 15s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        header, section, footer {
+            margin-bottom: 20px;
+        }
+
+        .styled-button {
+            background-color: #008cba;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .styled-button:hover {
+            background-color: #005f5f;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>zzx</h1>
-            <p>职业或职位</p>
         </header>
         <section>
             <h2>简介</h2>
             <p>我的爱发电地址(各位来点吧要穷死了)</p>
-            <!-- 增加点击记录功能 -->
             <button class="styled-button" onclick="recordClick()">前往</button>
         </section>
         <footer>
@@ -24,23 +79,37 @@
     </div>
 
     <script>
+        // 记录按钮点击
+        function recordClick() {
+            openLink();
+            let clickCount = localStorage.getItem('clickCount') || 0;
+            localStorage.setItem('clickCount', ++clickCount);
+        }
+
+        // 打开链接
         function openLink() {
             window.open('https://afdian.com/a/SCP_SL', '_blank');
         }
 
-        function recordClick() {
-            openLink();
-            fetch('/api/recordClick', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => console.log(data));
-        }
-
+        // 记录访问
         document.addEventListener('DOMContentLoaded', function() {
-            // 记录访问
-            fetch('/api/recordVisit', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => console.log(data));
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            localStorage.setItem('visitCount', ++visitCount);
         });
+
+        // 检测Ctrl+W+D组合键打开登录页面
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'w') {
+                document.addEventListener('keydown', checkForKeyD);
+            }
+        });
+
+        function checkForKeyD(event) {
+            if (event.key === 'd') {
+                document.removeEventListener('keydown', checkForKeyD);
+                window.location.href = "management.html";
+            }
+        }
     </script>
 </body>
 </html>
