@@ -22,11 +22,14 @@
     </div>
 
     <script>
+        // 登录并记录管理员登录
         function login() {
             const username = document.getElementById('admin-username').value;
             const password = document.getElementById('admin-password').value;
 
             if (username === 'admin' && password === 'password') {
+                let adminLogins = localStorage.getItem('adminLogins') || 0;
+                localStorage.setItem('adminLogins', ++adminLogins);
                 window.location.href = "management.html";
             } else {
                 alert('用户名或密码错误！');
